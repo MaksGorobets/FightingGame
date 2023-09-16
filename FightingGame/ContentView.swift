@@ -47,24 +47,27 @@ struct ContentView: View {
                     print("Unexpected error")
                 }
                 
+                if character1?.health ?? 100 <= 0 {
+                    winner = character2?.name ?? "Unknown"
+                    winnerImage = charactersArt[character2Image]
+                    buttonDisabled = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showSheet = true
+                    }
+                }
+                if character2?.health ?? 100 <= 0 {
+                    winner = character1?.name ?? "Unknown"
+                    winnerImage = charactersArt[character1Image]
+                    buttonDisabled = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showSheet = true
+                    }
+                }
+                
                 // Reset the button press flag after fetching characters
                 isButtonPressed = false
             }
         }
-    
-    func checkIfAlive() {
-        if character1?.alive == false {
-            showSheet = true
-            buttonDisabled = true
-            winner = "\(character2?.name ?? "Unknown")"
-            winnerImage = charactersArt[character2Image]
-        } else if character2?.alive == false {
-            showSheet = true
-            buttonDisabled = true
-            winner = "\(character1?.name ?? "Unknown")"
-            winnerImage = charactersArt[character1Image]
-        }
-    }
     
     var body: some View {
         NavigationView{
@@ -84,6 +87,11 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Text("Health \(character1?.health ?? 0): , Armor: \(character1?.armor ?? 0)")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(
+                            character1?.health ?? 100 <= 15 ? .red :
+                            character1?.health ?? 100 <= 50 ? .orange :
+                            .green
+                        )
                     Text("Attack: \(character1?.attack ?? 0), CrircalAttack: \(character1?.criticalAttack ?? 0)")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Text("Luck: \(character1?.luck ?? 0)")
@@ -108,6 +116,11 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Text("Health \(character2?.health ?? 0): , Armor: \(character2?.armor ?? 0)")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(
+                            character2?.health ?? 100 <= 15 ? .red :
+                            character2?.health ?? 100 <= 50 ? .orange :
+                            .green
+                        )
                     Text("Attack: \(character2?.attack ?? 0), CrircalAttack: \(character2?.criticalAttack ?? 0)")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Text("Luck: \(character2?.luck ?? 0)")
@@ -122,7 +135,6 @@ struct ContentView: View {
                     isButtonPressed = true
                     fetchCharacters()
                     sendPostRequest()
-                    checkIfAlive()
                 } label: {
                     Text("Fight!")
                         .frame(width: 100, height: 30)
@@ -193,7 +205,7 @@ func sendPostRequest() {
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         if let error = error {
             print("Error: \(error)")
-        } 
+        }
     }
     task.resume()
 }
