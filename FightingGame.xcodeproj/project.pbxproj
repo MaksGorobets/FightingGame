@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9C618AC2AB6219E00EB1856 /* FightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C618AB2AB6219E00EB1856 /* FightView.swift */; };
+		E9C618AE2AB622AB00EB1856 /* MobFightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C618AD2AB622AB00EB1856 /* MobFightView.swift */; };
 		E9D8F3C52AB490A3005ED04D /* FightingGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8F3C42AB490A3005ED04D /* FightingGameApp.swift */; };
 		E9D8F3C72AB490A3005ED04D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8F3C62AB490A3005ED04D /* ContentView.swift */; };
 		E9D8F3C92AB490A4005ED04D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D8F3C82AB490A4005ED04D /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9C618AB2AB6219E00EB1856 /* FightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightView.swift; sourceTree = "<group>"; };
+		E9C618AD2AB622AB00EB1856 /* MobFightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobFightView.swift; sourceTree = "<group>"; };
 		E9D8F3C12AB490A3005ED04D /* FightingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D8F3C42AB490A3005ED04D /* FightingGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingGameApp.swift; sourceTree = "<group>"; };
 		E9D8F3C62AB490A3005ED04D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +60,8 @@
 				E9D8F3D22AB490D3005ED04D /* requests.swift */,
 				E9D8F3C42AB490A3005ED04D /* FightingGameApp.swift */,
 				E9D8F3C62AB490A3005ED04D /* ContentView.swift */,
+				E9C618AB2AB6219E00EB1856 /* FightView.swift */,
+				E9C618AD2AB622AB00EB1856 /* MobFightView.swift */,
 				E9D8F3C82AB490A4005ED04D /* Assets.xcassets */,
 				E9D8F3CA2AB490A4005ED04D /* Preview Content */,
 			);
@@ -140,8 +146,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C618AC2AB6219E00EB1856 /* FightView.swift in Sources */,
 				E9D8F3C72AB490A3005ED04D /* ContentView.swift in Sources */,
 				E9D8F3C52AB490A3005ED04D /* FightingGameApp.swift in Sources */,
+				E9C618AE2AB622AB00EB1856 /* MobFightView.swift in Sources */,
 				E9D8F3D32AB490D3005ED04D /* requests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
