@@ -160,7 +160,7 @@ struct Mob: Codable {
     let name: String
     let health, armor, attack, luck: Int
     let alive: Bool
-    let criticalAttack: Double
+    let criticalAttack: Int
     
     enum CodingKeys: String, CodingKey {
         case level, xp, name, health, armor, attack, luck, alive
