@@ -21,53 +21,50 @@ struct FightView: View {
     let charactersArt = ["character0", "character1", "character2", "character3", "character4", "character5"]
     
     
-    private func fetchCharacters() {
-            Task {
-                do {
-                    character1 = try await getCharacter1()
-                } catch GHError.invalidURL {
-                    print("Invalid URL")
-                } catch GHError.invalidResponse {
-                    print("Invalid response")
-                } catch GHError.invalidData {
-                    print("Invalid data")
-                } catch {
-                    print("Unexpected error")
+    func fetchCharacters() {
+        Task {
+            do {
+                character1 = try await getCharacter1()
+            } catch GHError.invalidURL {
+                print("Invalid URL")
+            } catch GHError.invalidResponse {
+                print("Invalid response")
+            } catch GHError.invalidData {
+                print("Invalid data")
+            } catch {
+                print("Unexpected error")
+            }
+            
+            do {
+                character2 = try await getCharacter2()
+            } catch GHError.invalidURL {
+                print("Invalid URL")
+            } catch GHError.invalidResponse {
+                print("Invalid response")
+            } catch GHError.invalidData {
+                print("Invalid data")
+            } catch {
+                print("Unexpected error")
+            }
+            
+            if character1?.health ?? 100 <= 0 {
+                winner = character2?.name ?? "Unknown"
+                winnerImage = charactersArt[character2Image]
+                buttonDisabled = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showSheet = true
                 }
-                
-                do {
-                    character2 = try await getCharacter2()
-                } catch GHError.invalidURL {
-                    print("Invalid URL")
-                } catch GHError.invalidResponse {
-                    print("Invalid response")
-                } catch GHError.invalidData {
-                    print("Invalid data")
-                } catch {
-                    print("Unexpected error")
+            }
+            if character2?.health ?? 100 <= 0 {
+                winner = character1?.name ?? "Unknown"
+                winnerImage = charactersArt[character1Image]
+                buttonDisabled = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showSheet = true
                 }
-                
-                if character1?.health ?? 100 <= 0 {
-                    winner = character2?.name ?? "Unknown"
-                    winnerImage = charactersArt[character2Image]
-                    buttonDisabled = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        showSheet = true
-                    }
-                }
-                if character2?.health ?? 100 <= 0 {
-                    winner = character1?.name ?? "Unknown"
-                    winnerImage = charactersArt[character1Image]
-                    buttonDisabled = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        showSheet = true
-                    }
-                }
-                
-                // Reset the button press flag after fetching characters
-                isButtonPressed = false
             }
         }
+    }
     
     var body: some View {
         NavigationView{
@@ -89,8 +86,8 @@ struct FightView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(
                             character1?.health ?? 100 <= 15 ? .red :
-                            character1?.health ?? 100 <= 50 ? .orange :
-                            .green
+                                character1?.health ?? 100 <= 50 ? .orange :
+                                    .green
                         )
                     Text("Attack: \(character1?.attack ?? 0), CrircalAttack: \(character1?.criticalAttack ?? 0)")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -118,8 +115,8 @@ struct FightView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(
                             character2?.health ?? 100 <= 15 ? .red :
-                            character2?.health ?? 100 <= 50 ? .orange :
-                            .green
+                                character2?.health ?? 100 <= 50 ? .orange :
+                                    .green
                         )
                     Text("Attack: \(character2?.attack ?? 0), CrircalAttack: \(character2?.criticalAttack ?? 0)")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -132,7 +129,6 @@ struct FightView: View {
                 .padding()
                 Spacer()
                 Button {
-                    isButtonPressed = true
                     fetchCharacters()
                     sendPostRequest()
                 } label: {
@@ -145,7 +141,7 @@ struct FightView: View {
                 .padding()
                 .foregroundColor(.purple)
             }
-            .navigationTitle("Kick")
+            .navigationTitle("Fight")
             .navigationBarTitleDisplayMode(.inline)
             .task {
                 fetchCharacters()
@@ -153,11 +149,20 @@ struct FightView: View {
         }
         .sheet(isPresented: $showSheet) {
             Image(winnerImage)
+                .resizable()
                 .cornerRadius(30)
+                .frame(width: 250, height: 250)
+                .padding()
             Text("\(winner) wins!")
                 .presentationDetents([.medium])
                 .presentationCornerRadius(45)
                 .presentationBackground(.thinMaterial)
+            Button("OK") {
+                showSheet = false
+            }
+            .buttonStyle(BorderedButtonStyle())
+            .foregroundColor(.orange)
+            .cornerRadius(30)
         }
     }
 }
@@ -178,75 +183,5 @@ struct Character: Codable {
     enum CodingKeys: String, CodingKey {
         case name, level, xp, health, armor, attack, luck, balance, alive
         case criticalAttack = "critical_attack"
-    }
-}
-
-enum GHError: Error {
-    case invalidURL
-    case invalidResponse
-    case invalidData
-}
-
-func sendPostRequest() {
-    let urlString = "http://127.0.0.1:5000/fight_character"
-    guard let url = URL(string: urlString) else {
-        print("Invalid URL")
-        return
-    }
-
-    // Create the POST request
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-
-    // Define the POST data (if needed)
-    let postData = "c1damage=damage".data(using: .utf8)
-
-    // Set the HTTP body
-    request.httpBody = postData
-
-    // Create a URLSession task to send the request
-    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-        if let error = error {
-            print("Error: \(error)")
-        }
-    }
-    task.resume()
-}
-
-func getCharacter1() async throws -> Character {
-    let endpoint = "http://127.0.0.1:5000/character1"
-    
-    guard let url = URL(string: endpoint) else { throw GHError.invalidURL }
-    
-    let (data, response) = try await URLSession.shared.data(from: url)
-    
-    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-        throw GHError.invalidResponse
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        return try decoder.decode(Character.self, from: data)
-    } catch {
-        throw GHError.invalidData
-    }
-}
-
-func getCharacter2() async throws -> Character {
-    let endpoint = "http://127.0.0.1:5000/character2"
-    
-    guard let url = URL(string: endpoint) else { throw GHError.invalidURL }
-    
-    let (data, response) = try await URLSession.shared.data(from: url)
-    
-    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-        throw GHError.invalidResponse
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        return try decoder.decode(Character.self, from: data)
-    } catch {
-        throw GHError.invalidData
     }
 }
