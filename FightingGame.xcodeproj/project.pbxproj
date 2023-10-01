@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9371DF92AC9CFC100885B08 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9371DF82AC9CFC100885B08 /* CircularProgressView.swift */; };
 		E9C618AC2AB6219E00EB1856 /* FightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C618AB2AB6219E00EB1856 /* FightView.swift */; };
 		E9C618AE2AB622AB00EB1856 /* MobFightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C618AD2AB622AB00EB1856 /* MobFightView.swift */; };
 		E9D8F3C52AB490A3005ED04D /* FightingGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8F3C42AB490A3005ED04D /* FightingGameApp.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9371DF82AC9CFC100885B08 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		E9C618AB2AB6219E00EB1856 /* FightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightView.swift; sourceTree = "<group>"; };
 		E9C618AD2AB622AB00EB1856 /* MobFightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobFightView.swift; sourceTree = "<group>"; };
 		E9D8F3C12AB490A3005ED04D /* FightingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +59,7 @@
 		E9D8F3C32AB490A3005ED04D /* FightingGame */ = {
 			isa = PBXGroup;
 			children = (
+				E9371DF82AC9CFC100885B08 /* CircularProgressView.swift */,
 				E9D8F3D22AB490D3005ED04D /* requests.swift */,
 				E9D8F3C42AB490A3005ED04D /* FightingGameApp.swift */,
 				E9D8F3C62AB490A3005ED04D /* ContentView.swift */,
@@ -104,7 +107,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					E9D8F3C02AB490A3005ED04D = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -150,6 +153,7 @@
 				E9D8F3C72AB490A3005ED04D /* ContentView.swift in Sources */,
 				E9D8F3C52AB490A3005ED04D /* FightingGameApp.swift in Sources */,
 				E9C618AE2AB622AB00EB1856 /* MobFightView.swift in Sources */,
+				E9371DF92AC9CFC100885B08 /* CircularProgressView.swift in Sources */,
 				E9D8F3D32AB490D3005ED04D /* requests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +197,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -207,7 +212,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -253,6 +258,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -261,7 +267,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

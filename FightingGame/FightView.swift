@@ -70,11 +70,15 @@ struct FightView: View {
         NavigationView{
             VStack {
                 HStack{
-                    Image(charactersArt[character1Image])
-                        .resizable()
-                        .clipShape(Circle())
-                        .frame(width: 70, height: 70)
-                        .padding()
+                    ZStack{
+                        Image(charactersArt[character1Image])
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 70, height: 70)
+                            .padding()
+                        CircularProgressView(progress: Double(character1?.health ?? 0) * 0.01)
+                            .frame(width: 80, height: 80)
+                    }
                     Text(character1?.name ?? "No name")
                         .font(.system(size: 30))
                     Spacer()
@@ -97,13 +101,17 @@ struct FightView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .font(.system(size: 20))
-                .padding()
+                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 HStack{
-                    Image(charactersArt[character2Image])
-                        .resizable()
-                        .clipShape(Circle())
-                        .frame(width: 70, height: 70)
-                        .padding()
+                    ZStack{
+                        Image(charactersArt[character2Image])
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 70, height: 70)
+                            .padding()
+                        CircularProgressView(progress: Double(character2?.health ?? 0) * 0.01)
+                            .frame(width: 80, height: 80)
+                    }
                     Text(character2?.name ?? "No name")
                         .font(.system(size: 30))
                     Spacer()
@@ -126,7 +134,7 @@ struct FightView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .font(.system(size: 20))
-                .padding()
+                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 Spacer()
                 Button {
                     fetchCharacters()
@@ -147,6 +155,7 @@ struct FightView: View {
                 fetchCharacters()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $showSheet) {
             Image(winnerImage)
                 .resizable()

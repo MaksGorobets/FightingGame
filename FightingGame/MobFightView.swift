@@ -98,7 +98,7 @@ struct MobFightView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .font(.system(size: 20))
-                .padding()
+                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 HStack{
                     Image(mobsArt[mobsImage])
                         .resizable()
@@ -125,7 +125,7 @@ struct MobFightView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .font(.system(size: 20))
-                .padding()
+                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 Spacer()
                 Button {
                     fetchMobFight()
@@ -146,6 +146,7 @@ struct MobFightView: View {
                 fetchMobFight()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     struct MobFightView_Previews: PreviewProvider {
