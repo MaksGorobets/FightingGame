@@ -71,13 +71,30 @@ struct MobFightView: View {
         NavigationView{
             VStack{
                 HStack{
-                    Image(fightView.charactersArt[fightView.character1Image])
-                        .resizable()
-                        .clipShape(Circle())
-                        .frame(width: 70, height: 70)
-                        .padding()
-                    Text(character1?.name ?? "No name")
-                        .font(.system(size: 30))
+                    ZStack{
+                        Image(charactersArt[character1Image])
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 70, height: 70)
+                            .padding()
+                        CircularProgressView(progress: Double(character1?.health ?? 0) * 0.01)
+                            .frame(width: 80, height: 80)
+                    }
+                    VStack(spacing: 1) {
+                        HStack {
+                            Text(character1?.name ?? "No name")
+                                .font(.system(size: 30))
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Lvl: \(character1?.level ?? 0)")
+                            ProgressView(value: Double(character1?.xp ?? 0) * 0.01)
+                                .frame(width: 130)
+                                .tint(.purple)
+                            Text("Lvl: \((character1?.level ?? 0) + 1)")
+                            Spacer()
+                        }
+                    }
                     Spacer()
                 }
                 VStack{
@@ -100,11 +117,15 @@ struct MobFightView: View {
                 .font(.system(size: 20))
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 HStack{
-                    Image(mobsArt[mobsImage])
-                        .resizable()
-                        .clipShape(Circle())
-                        .frame(width: 70, height: 70)
-                        .padding()
+                    ZStack {
+                        Image(mobsArt[mobsImage])
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 70, height: 70)
+                            .padding()
+                        CircularProgressView(progress: Double(mob?.health ?? 0) * 0.01)
+                            .frame(width: 80, height: 80)
+                    }
                     Text(mob?.name ?? "No name")
                         .font(.system(size: 30))
                     Spacer()
@@ -167,4 +188,8 @@ struct Mob: Codable {
         case level, xp, name, health, armor, attack, luck, alive
         case criticalAttack = "critical_attack"
     }
+}
+
+#Preview {
+    MobFightView()
 }

@@ -16,9 +16,6 @@ struct FightView: View {
     @State var buttonDisabled: Bool = false
     @State var winner: String = ""
     @State var winnerImage: String = ""
-    let character1Image = Int.random(in: 0...5)
-    let character2Image = Int.random(in: 0...5)
-    let charactersArt = ["character0", "character1", "character2", "character3", "character4", "character5"]
     
     
     func fetchCharacters() {
@@ -79,8 +76,21 @@ struct FightView: View {
                         CircularProgressView(progress: Double(character1?.health ?? 0) * 0.01)
                             .frame(width: 80, height: 80)
                     }
-                    Text(character1?.name ?? "No name")
-                        .font(.system(size: 30))
+                    VStack(spacing: 1) {
+                        HStack {
+                            Text(character1?.name ?? "No name")
+                                .font(.system(size: 30))
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Lvl: \(character1?.level ?? 0)")
+                            ProgressView(value: Double(character1?.xp ?? 0) * 0.01)
+                                .frame(width: 130)
+                                .tint(.purple)
+                            Text("Lvl: \((character1?.level ?? 0) + 1)")
+                            Spacer()
+                        }
+                    }
                     Spacer()
                 }
                 VStack{
@@ -167,7 +177,12 @@ struct FightView: View {
                 .presentationCornerRadius(45)
                 .presentationBackground(.thinMaterial)
             Button("OK") {
+                sendInitRequest()
                 showSheet = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    fetchCharacters()
+                    buttonDisabled = false
+                }
             }
             .buttonStyle(BorderedButtonStyle())
             .foregroundColor(.orange)
